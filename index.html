@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #chat { margin: 0 auto; max-width: 500px; }
+        #messages { list-style: none; padding: 0; }
+        #messages li { padding: 8px; margin-bottom: 5px; border-bottom: 1px solid #ccc; }
+    </style>
+</head>
+<body>
+    <div id="chat">
+        <ul id="messages"></ul>
+        <input id="username" placeholder="Username" /><br/>
+        <input id="message" placeholder="Message" />
+        <button onclick="sendMessage()">Send</button>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+        socket.on('load messages', (messages) => {
+            const messagesList = document.getElementById('messages');
+            messages.forEach((msg) => {
+                const li = document.createElement('li');
+                li.textContent = `${msg.username}: ${msg.message}`;
+                messagesList.appendChild(li);
+            });
+        });
+
+        socket.on('receive message', (data) => {
+            const messagesList = document.getElementById('messages');
+            const li = document.createElement('li');
+            li.textContent = `${data.username}: ${data.message}`;
+            messagesList.appendChild(li);
+        });
+
+        function sendMessage() {
+            const username = document.getElementById('username').value;
+            const message = document.getElementById('message').value;
+            socket.emit('send message', { username, message });
+            document.getElementById('message').value = '';
+        }
+    </script>
+</body>
+</html>

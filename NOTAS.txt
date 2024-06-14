@@ -1,0 +1,52 @@
+Chatbot en tiempo real desarrollado con Node.js, Socket.IO, Redis y MongoDB.
+
+Características del Proyecto
+Comunicación en Tiempo Real:
+
+Utiliza Socket.IO para establecer una comunicación bidireccional en tiempo real entre el cliente y el servidor.
+Los usuarios pueden enviar y recibir mensajes instantáneamente.
+Persistencia de Datos:
+
+Los mensajes se almacenan en una base de datos MongoDB para garantizar la persistencia y la capacidad de recuperar el historial de chat.
+Redis se utiliza para almacenar los mensajes más recientes, facilitando un acceso rápido y eficiente a estos datos.
+Interfaz de Usuario Sencilla:
+
+Una simple interfaz de chat HTML que permite a los usuarios introducir su nombre de usuario y mensaje.
+Los mensajes se muestran en una lista en la misma página.
+Componentes Principales
+Servidor (Node.js + Express):
+
+Gestiona las conexiones de los clientes y sirve la página HTML.
+Maneja la lógica de negocio para almacenar y recuperar mensajes de MongoDB.
+Utiliza Redis para un almacenamiento temporal rápido.
+Cliente (HTML + JavaScript):
+
+Una página HTML que permite a los usuarios enviar y recibir mensajes.
+Utiliza Socket.IO para interactuar con el servidor en tiempo real.
+Base de Datos (MongoDB):
+
+Almacena todos los mensajes enviados por los usuarios.
+Proporciona persistencia de datos, permitiendo la recuperación del historial de chat.
+Cache (Redis):
+
+Almacena los mensajes recientes para un acceso rápido.
+Complementa MongoDB proporcionando una capa de almacenamiento en memoria.
+Arquitectura del Proyecto
+Servidor Node.js:
+
+Express: Sirve el archivo HTML y gestiona las rutas HTTP.
+Socket.IO: Maneja la comunicación en tiempo real entre el cliente y el servidor.
+Mongoose: Interactúa con MongoDB para almacenar y recuperar mensajes.
+Redis: Utilizado para almacenar los mensajes recientes en memoria.
+Cliente:
+
+HTML/CSS: Proporciona la interfaz de usuario básica.
+JavaScript: Utiliza Socket.IO para enviar y recibir mensajes en tiempo real.
+Flujo de Datos
+El cliente se conecta al servidor usando Socket.IO.
+El servidor envía el historial de mensajes desde MongoDB al cliente al conectarse.
+El usuario envía un mensaje a través de la interfaz web.
+El mensaje se envía al servidor usando Socket.IO.
+El servidor almacena el mensaje en MongoDB y Redis.
+El servidor emite el mensaje a todos los clientes conectados.
+Los clientes reciben el mensaje y lo muestran en la interfaz.
